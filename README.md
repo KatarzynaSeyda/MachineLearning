@@ -1,6 +1,6 @@
 # Analiza notowań sektorów na giełdzie  📈
 
-
+https://colab.research.google.com/drive/1VRk2ZH_AyqvYOatS1U6PgXedCnWYmvKF?authuser=1#scrollTo=9Xmt7Q-B1x5g
 Program pozwala na analizowanie danych dotyczących notowań najwięszych spółek giełdowych per sektor. Dane zawierają codzienne notowania 61 największych spółek pogrupowanych w 20 sektorów. 📶
 
 🔍 Użytkownik może wybrać sektor, który chce przeanalizować.  
