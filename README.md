@@ -1,14 +1,15 @@
 # Analiza notowań sektorów na giełdzie  📈
 
-https://colab.research.google.com/drive/1VRk2ZH_AyqvYOatS1U6PgXedCnWYmvKF?authuser=1#scrollTo=9Xmt7Q-B1x5g
+https://colab.research.google.com/drive/1VRk2ZH_AyqvYOatS1U6PgXedCnWYmvKF
 
 Program pozwala na analizowanie danych dotyczących notowań najwięszych spółek giełdowych per sektor. Dane zawierają codzienne notowania 61 największych spółek pogrupowanych w 20 sektorów. 📶
 
 🔍 Użytkownik może wybrać sektor, który chce przeanalizować.  
-📆 Analizie poddawane jest ostatnie 104 tygodnie (~2 lata).
+📆 Analizie poddawanych jest ostatnie 500 tygodni.
 
 ### ________ 🔷 Przygotowanie danych🔷 ____________________
 ⚙️**Indeksy sektorowe** przedstawiają średnią tygodniową z indeksów dziennych. Te natomiast są średnią cen zamknięcia spółek w danym sektorze ważoną wolumenem sprzedaży.
+Jeżeli jakiś sektor nie zawiera wystarczającej ilości danych, zostaje usunięty z analizy.
 
 W pierwszym kroku analizy program przygotowuje:
 + **statystyki opisowe** zbioru danych,
@@ -26,7 +27,7 @@ W metodzie tej zmienne X są standaryzowane metodą MinMaxScaler.
 Lista wyselekcjonowanych zmiennych (lub grup zmiennych) jest dalej przekazana do treningu modelu XGBoost.
 
 W kolejnym kroku zbudowano model XGBoost na wyselekcjonowanych zmiennych i obliczono **Feature Importance**📊 dla każdej z nich.
-Oceniająć globalny wpływ zmiennych na zmienną objaśnianą program eliminuje najmniej istotne zmienne. W modelu finalnym pozostają zmienne wyjaśniające w 95% zmienną prognozowaną.
+Oceniająć globalny wpływ zmiennych na zmienną objaśnianą program eliminuje najmniej istotne zmienne. W modelu finalnym pozostają zmienne wyjaśniające w 99% zmienną prognozowaną.
 
 Po wyselekcjonowaniu zmiennych do modelu program optymalizuje ostateczny model XGBoost.
 
@@ -43,7 +44,7 @@ Pozostałe hiperparametry ustawione w modelu XGBoost:
 + _max_depth_=6: głębokość drzewa decyzyjnego
 + _gamma_=1: minimalna redukcja kosztu, wymagana do podziału drzewa
 
-Podczas optymalizacji hiperparametrów wykorzystane jest przesuwające się okno czasowe (zakres danych treningowych i testowych przesuwa się o 1 tydzień).
+Podczas optymalizacji hiperparametrów wykorzystane jest przesuwające się okno czasowe (zakres danych treningowych i walidacyjnych przesuwa się o 1 tydzień).
 Dla każdego zestawu hiperparametrów wykonywany jest trening modelu w każdym oknie czasowym. Wyniki są agregowane jako średnia RMSE.
 Po ustaleniu optymalnych hiperparametrów modelu następuje ostateczny trening modelu.
 
@@ -55,7 +56,7 @@ Program pozwala również na wizualizację wpływu zmiennych na wartość analiz
 
 
 ### ________ 🔷 Prognoza dla użytkownika 🔷 ____________________
-Ostatcznie program dokonuje **prognozę**🎯 wartości indeksu sektora na kolejny tydzień.
+Ostatcznie program oblicza **prognozę**🎯 wartości indeksu sektora na kolejny tydzień.
 Na podstawie wartości prognozowanej dokonywana jest rekomendacja KUP/SPRZEDAJ.
 
 
